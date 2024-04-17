@@ -1,0 +1,161 @@
+\documentclass[en,xcolor={dvipsnames,svgnames}]{beamer}
+
+\usetheme{default}
+\definecolor{bluehands-light}{HTML}{009BB4}
+\definecolor{bluehands-dark}{HTML}{00243A}
+\setbeamercolor*{structure}{bg=bluehands-dark,fg=bluehands-light}
+
+\setbeamercolor*{palette primary}{use=structure,fg=white,bg=structure.fg}
+\setbeamercolor*{palette secondary}{use=structure,fg=white,bg=structure.fg!75}
+\setbeamercolor*{palette tertiary}{use=structure,fg=white,bg=structure.fg!50!black}
+\setbeamercolor*{palette quaternary}{fg=white,bg=black}
+
+\setbeamercolor{section in toc}{fg=black,bg=white}
+\setbeamercolor{alerted text}{use=structure,fg=structure.fg!50!black!80!black}
+
+\setbeamercolor{titlelike}{parent=palette primary,fg=structure.fg!50!black}
+\setbeamercolor{frametitle}{bg=gray!10!white,fg=bluehands-light}
+
+\setbeamercolor*{titlelike}{parent=palette primary}
+
+\usepackage{appendixnumberbeamer}
+\usepackage{pgfpages}
+\usepackage{changepage}
+\usepackage{csquotes}
+\usepackage{scalerel, stackengine, amsmath, nccmath}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{algorithm2e}
+\usepackage{bm}
+\usepackage{svg}
+\usepackage{listings}
+\usepackage[english, german]{babel}
+%\usepackage{enumitem}
+\usepackage{pgfkeys}
+\pgfkeys{
+	/padding/.is family, /padding,
+	top/.estore in = \paddingtop,
+	bottom/.estore in = \paddingbottom,
+	left/.estore in = \paddingleft,
+	right/.estore in = \paddingright,
+	horizontal/.style = {left = #1, right = #1},
+	vertical/.style = {top = #1, bottom = #1},
+	default/.style = {horizontal = 0pt, vertical = 0pt}
+}
+
+\usepackage{tikz}
+\usetikzlibrary{
+	positioning,
+	fit,
+	calc,
+	automata,
+	math,
+	decorations.pathreplacing,
+	arrows.meta}
+\tikzset{
+	only/.code args={<#1>#2}{\only<#1>{\pgfkeysalso{#2}}},
+	onslide/.code args={<#1>#2}{\onslide<#1>{\pgfkeysalso{#2}}},
+}
+\newcommand{\incslide}[1][1]{\tikzmath{
+		\currentslide = \currentslide + #1;
+		\nextslide = \currentslide + 1;}}
+\newcommand{\kitbullet}{\raisebox{.2ex}{\KITmark}}
+
+\newcommand{\bigitem}[1][0.08cm]{\vspace{#1}\item}
+\newcommand{\wrapitem}[2][0.45\linewidth]{\parbox[t]{#1}{\strut #2\strut}}
+
+\newcommand{\equalhat}{\mathrel{\stackon[1.5pt]{=}{\stretchto{%
+				\scalerel*[\widthof{=}]{\wedge}{\rule{1ex}{3ex}}}{0.5ex}}}}
+\newcommand{\ra}{\ensuremath{\Rightarrow}}
+\newcommand{\arrowitem}{\item[\ra]}
+\newcommand{\lookahead}[1]{
+	\begin{itemize}
+		\arrowitem #1 
+	\end{itemize}
+}
+\newcommand{\hint}[1]{\item[~] \textit{#1}}
+\newcommand{\keyword}[1]{\textcolor{blue}{\textbf{#1}}}
+\newcommand<>{\notes}[1]{\note#2{
+		\begin{adjustwidth}{-1.1cm}{-0.5cm}
+			\begin{itemize}
+				#1
+			\end{itemize}
+		\end{adjustwidth}
+}}
+
+%\newcommand{\hint}[1]{\textit{#1}}
+
+\newcommand{\leftgraphicswidth}{0.7\linewidth}
+\newcommand{\rightnoteswidth}{0.29\linewidth}
+
+\bibliographystyle{unsrt}
+\setbeameroption{show notes on second screen=right}
+\setbeamertemplate{bibliography entry title}{}
+\setbeamertemplate{bibliography entry location}{}
+\setbeamertemplate{bibliography entry note}{}
+\setbeamersize
+{
+	text margin left=0.5cm,
+	text margin right=0.5cm	
+}
+
+\DeclarePairedDelimiter\Bracket{\lbrack}{\rbrack}
+
+\newenvironment{leftitemize}[1][7mm]{%
+	\setlength{\leftmargini}{#1}
+	\begin{itemize}
+	}%
+	{%
+	\end{itemize}	
+}
+\newcommand{\leftitem}[1][1mm]{\item[\kitbullet\hspace*{-#1}]}
+\newenvironment{conditions}[1][1]{%
+	%	\newline \bigskip
+	\begin{minipage}{#1\linewidth}
+		%	\hspace{.2cm}
+		\begin{tabular}{llc}
+			\hspace{.6cm}&\hspace{1cm}&\\%\vspace{.5cm}\\
+		}%
+		{%
+		\end{tabular}
+	\end{minipage}%
+}
+\newcommand{\conditiontext}[1]{&\multicolumn{2}{l}{\kitbullet~~#1}\\}
+\newcommand{\conditioneq}[1]{&&#1\\}
+
+\title[Hyper Hypermedia]{Hyper Hypermedia - How much is the REST?}
+\author{Jasper Park}
+\institute[bluehands]{Bunte Nacht der Digitalisierung @ bluehands}
+\logo{\includesvg[width=2.5cm,inkscapeformat=png]{../images/bluehands-logo}}
+
+\date[07.06.24]{07. Juni 2024}
+
+\begin{document}
+	
+	\begin{frame}
+		\titlepage
+		\notes{\item Hi \keyword{Jasper}}
+	\end{frame}
+	
+	\begin{frame}
+		\begin{itemize}
+			\item REST Api \ra~json endpoint \ra~nice
+			\item[\ra] show json example
+			\item Wikipedia example: search, get result, start manipulating uri
+			\item[\ra] rather just (click) on the item
+			\item why not do that in API?
+			\item[\ra] enhance json
+			\item show backend c\# code how to define controller?
+			\item show frontend c\# code how to get content
+			\item somewhere: xml defined contract
+			\item live demo generic UI?
+		\end{itemize}
+	\end{frame}
+	\begin{frame}[fragile]
+		\begin{lstlisting}
+{
+  "some": "property"
+}
+		\end{lstlisting}
+	\end{frame}
+\end{document}
