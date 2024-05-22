@@ -31,6 +31,8 @@
 \usepackage{listings}
 \usepackage[english, german]{babel}
 %\usepackage{enumitem}
+\usepackage{verbatim}
+
 \usepackage{pgfkeys}
 \pgfkeys{
 	/padding/.is family, /padding,
@@ -82,6 +84,8 @@
 			\end{itemize}
 		\end{adjustwidth}
 }}
+\newcommand{\http}{\texttt{HTTP}}
+\newcommand{\json}{\texttt{JSON}}
 
 %\newcommand{\hint}[1]{\textit{#1}}
 
@@ -138,24 +142,141 @@
 	\end{frame}
 	
 	\begin{frame}
+		Slides and code are available at\newline\newline
+		https://github.com/park-jasper/bndd-hyper-hypermedia\newline
+		\includegraphics[width=0.5\textwidth]{../images/github_qr_code}
+	\end{frame}
+	
+%	\begin{frame}
+%		\begin{itemize}
+%			\item REST Api \ra~json endpoint \ra~nice
+%			\item[\ra] show json example
+%			\item Wikipedia example: search, get result, start manipulating uri
+%			\item[\ra] rather just (click) on the item
+%			\item why not do that in API?
+%			\item[\ra] enhance json
+%			\item show backend c\# code how to define controller?
+%			\item show frontend c\# code how to get content
+%			\item somewhere: xml defined contract
+%			\item live demo generic UI?
+%		\end{itemize}
+%	\end{frame}
+	\begin{frame}
+		\hspace{-0.54cm}
+		\includegraphics[height=\textheight]{../images/afraid_to_ask_hyper}
+	\end{frame}
+	\begin{frame}{Hypergraph}
+		\vspace{-0.5cm}
+		\includegraphics[width=0.9\textwidth]{../images/hypergraph_electric_circuit}
+	\end{frame}
+	\begin{frame}[fragile]{Hypertext}
+		\texttt{HTTP \& HTML}
+		\verbatiminput{../code/hypertext.html}
+		\includegraphics[height=0.3\textheight]{../images/hypertext.html}
+	\end{frame}
+	\begin{frame}
+		\hspace{-0.54cm}
+		\includegraphics[height=\textheight]{../images/two_paths_cyoa}
+	\end{frame}
+	\begin{frame}{Hypermedia}
 		\begin{itemize}
-			\item REST Api \ra~json endpoint \ra~nice
-			\item[\ra] show json example
-			\item Wikipedia example: search, get result, start manipulating uri
-			\item[\ra] rather just (click) on the item
-			\item why not do that in API?
-			\item[\ra] enhance json
-			\item show backend c\# code how to define controller?
-			\item show frontend c\# code how to get content
-			\item somewhere: xml defined contract
-			\item live demo generic UI?
+			\item \underline{Hyper}media describes any type of non-linear media
+			\item Text
+			\item Images
+			\item Sound / Video
 		\end{itemize}
 	\end{frame}
-	\begin{frame}[fragile]
-		\begin{lstlisting}
-{
-  "some": "property"
-}
-		\end{lstlisting}
+	\begin{frame}{How much is the \{REST\} - REST maturity model}
+		\begin{itemize}
+			\item Level 0: The Swamp of POX (Plain Old XML)
+			\only<1>{\newline
+			Using \http, a single endpoint, result depends on the parameter
+			}
+			\item Level 1: Resources
+			\only<2>{\newline
+			Multiple endpoints are available to call
+			}
+			\only<1-7>{\item Level 2: Methods}
+			\only<8->{\item Level 2: Methods, Headers, Query Parameters, Status Codes}
+			\only<3-4>{\newline
+			Call the same endpoint with different \http~verbs:\newline
+			\texttt{GET, POST, PUT, PATCH, DELETE}\onslide<4>{\texttt{, HEAD, OPTIONS}}
+			}
+			\only<5-7>{
+				\begin{itemize}
+					\only<5-7>{\item Level 2.1: Headers}
+					\only<6-7>{\item Level 2.2: Query Parameters}
+					\only<7>{\item Level 2.3: Status Codes}
+				\end{itemize}
+				}
+		
+			\item Level 3: Hypermedia Controls
+			\only<8>{\newline
+			Content Negotiation:\newline
+			\texttt{Accept \& Content-Type: application/json}\newline\newline
+			Hypermedia As The Engine Of Application State (\texttt{HATEOAS})
+			}
+		\end{itemize}
+	\end{frame}
+	\begin{frame}[fragile]{HATEOAS: Linking related Resources}
+		\only<1>{
+		Level 2 response \json
+		\verbatiminput{../code/rest.json}
+		}
+		\only<2>{
+		Level 3 response \json
+		{\smaller
+			\verbatiminput{../code/hypermedia.json}
+		}
+		}
+	\end{frame}
+	\begin{frame}
+		\hspace{-0.54cm}
+		\includegraphics[height=\textheight]{../images/drake_meme_client_urls}
+	\end{frame}
+	
+	\begin{frame}{HATEOAS: Actions}
+		\smaller
+		\verbatiminput{../code/hypermedia-actions.json}
+	\end{frame}
+	\begin{frame}
+		\hspace{-0.54cm}
+		\includegraphics[height=\textheight]{../images/ggg_actions}
+	\end{frame}
+	
+%	\begin{frame}{API example: Uni lecture and exam backend}
+%		\begin{itemize}
+%			\item \texttt{GET /lectures}
+%			\item \texttt{GET /lecture/\{name\}/\{year\}}
+%			\item \texttt{GET /exam/\{lecture\}/\{year\}}
+%			\item \texttt{POST /exam/\{lecture\}/\{year\}/register}
+%			\item \texttt{POST /exam/\{lecture\}/\{year\}/unregister}
+%			\item \texttt{POST /exam/\{lecture\}/\{year\}/change-grade}
+%		\end{itemize}
+%	\end{frame}
+%	\begin{frame}[fragile]
+%		Lecture:
+%		\begin{lstlisting}
+%{
+%	"name": "Statistics 1",
+%	"year": 2024,
+%	"lecturer": "Jane Doe"
+%}
+%		\end{lstlisting}
+%		Exam:
+%		\begin{lstlisting}
+%{
+%	"lecture": "Statistics 1",
+%	"year": 2024,
+%	"grade": null
+%}
+%		\end{lstlisting}
+%	\end{frame}
+	\begin{frame}
+		\includegraphics[width=0.9\textwidth]{../images/generate_everything_from_contract}
+	\end{frame}
+	\begin{frame}{XMLContract}
+		\smaller
+		\verbatiminput{../code/bndd-hypermedia/Hypermedia-Bndd-Reduced.xml}
 	\end{frame}
 \end{document}

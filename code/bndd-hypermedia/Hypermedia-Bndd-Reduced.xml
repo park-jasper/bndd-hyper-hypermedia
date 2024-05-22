@@ -1,0 +1,21 @@
+﻿<Hypermedia>
+  <Documents>
+    <Document name="Lecture" title="A lecture">
+      <Properties>
+        <Property name="Id" type="string" isKey="true" mandatory="true" />
+        <Property name="Name" type="string" mandatory="true" />
+        <Property name="Year" type="int" mandatory="true" />
+        <Property name="Lecturer" type="string" mandatory="true" />
+      </Properties>
+      <Operations>
+        <Operation name="RegisterForExam"
+                   method="Post"
+                   parameterTypeName="..."
+                   resultDocument="Exam" />
+      </Operations>
+      <Links>
+        <Link rel="Exam" document="Exam" mandatory="false" />
+      </Links>
+    </Document>
+  </Documents>
+</Hypermedia>

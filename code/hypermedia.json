@@ -1,0 +1,19 @@
+{
+  "name": "Defense against the dark Arts",
+  "year": 2024,
+  "lecturer": "Prof. Dumbledore",
+  "links": [
+    {
+      "rel": [
+        "self"
+      ],
+      "href": "https://localhost:5000/lectures/DATDA24"
+    },
+    {
+      "rel": [
+        "exam"
+      ],
+      "href": "https://localhost:5000/exams/DATDA24"
+    }
+  ]
+}

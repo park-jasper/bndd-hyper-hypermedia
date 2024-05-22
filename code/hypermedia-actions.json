@@ -1,0 +1,18 @@
+{
+  "name": "Defense against the dark Arts",
+  "year": 2024,
+  "lecturer": "Prof. Dumbledore",
+  "actions": [
+    {
+      "name": "RegisterForExam",
+      "title": "Register for the Exam",
+      "method": "POST",
+      "href": "https://localhost:5000/exam/register/DATDA24",
+      "type": "application/json",
+      "class": [
+        "ParameterAction"
+      ],
+      "fields": [ "..." ]
+    }
+  ]
+}

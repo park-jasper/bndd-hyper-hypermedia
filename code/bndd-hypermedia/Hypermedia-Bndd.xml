@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Hypermedia xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://schema.bluehands.de/2022/Hypermedia.xsd ./Hypermedia.xsd"
+            xmlns="http://schema.bluehands.de/2022/Hypermedia.xsd">
+    <TransferParameters>
+      <Parameters typeName="CreateExamParameters" usedForQueries="false" usedForActions="true">
+        <Property name="Location" type="string" mandatory="true" />
+        <Property name="Date" type="DateTimeOffset" mandatory="true" />
+      </Parameters>
+
+      <Parameters typeName="EnterGradeParameters" usedForQueries="false" usedForActions="true">
+        <Property name="Student" type="string" mandatory="true" />
+        <Property name="Grade" type="string" mandatory="true" />
+      </Parameters>
+    </TransferParameters>
+    <Documents>
+        <Document name="EntryPoint" title="Entry Point to the API. This is the only document for which you need to know the route.">
+          <Classifications>
+            <Classification class="EntryPoint"/>
+          </Classifications>
+          <Links>
+            <Link rel="Lectures" document="Lectures" mandatory="true" />
+          </Links>
+        </Document>
+
+      <Document name="Lectures" title="Collection of all lectures.">
+        <Classifications>
+          <Classification class="Lectures" />
+        </Classifications>
+        <Entities>
+          <Entity collectionName="Lecture" document="Lecture" />
+        </Entities>
+      </Document>
+
+      <Document name="Lecture" title="A lecture">
+        <Classifications>
+          <Classification class="Lecture" />
+        </Classifications>
+        <Properties>
+          <Property name="Id" type="string" isKey="true" mandatory="true" />
+          <Property name="Name" type="string" mandatory="true" />
+          <Property name="Year" type="int" mandatory="true" />
+          <Property name="Lecturer" type="string" mandatory="true" />
+        </Properties>
+        <Operations>
+          <Operation name="CreateExam" method="Post" parameterTypeName="CreateExamParameters" resultDocument="Exam" />
+        </Operations>
+        <Links>
+          <Link rel="Exam" document="Exam" mandatory="false" />
+        </Links>
+      </Document>
+
+      <Document name="Exam" title="The description of an exam for a lecture">
+        <Classifications>
+          <Classification class="Exam" />
+        </Classifications>
+        <Properties>
+          <Property name="Lecture" type="string" isKey="true" mandatory="true" hidden="true" />
+          <Property name="Location" type="string" mandatory="false" />
+          <Property name="Date" type="DateTimeOffset" mandatory="false" />
+        </Properties>
+        <Operations>
+          <Operation name="Reschedule" method="Post" parameterTypeName="CreateExamParameters" resultDocument="Exam" />
+          <Operation name="EnterGrade" method="Post" parameterTypeName="EnterGradeParameters" resultDocument="Grade" />
+        </Operations>
+        <Links>
+          <Link rel="Lecture" document="Lecture" mandatory="true" />
+          <Link rel="Grade" document="Grade" mandatory="false" />
+        </Links>
+      </Document>
+
+      <Document name="Grade" title="The grade for an exam">
+        <Classifications>
+          <Classification class="Grade" />
+        </Classifications>
+        <Properties>
+          <Property name="Lecture" type="string" isKey="true" mandatory="true" hidden="true" />
+          <Property name="Student" type="string" isKey="true" mandatory="true" hidden="true" />
+          <Property name="Grade" type="string" mandatory="true" />
+        </Properties>
+      </Document>
+    </Documents>
+</Hypermedia>
